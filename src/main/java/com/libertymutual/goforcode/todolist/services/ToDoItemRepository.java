@@ -74,7 +74,7 @@ public class ToDoItemRepository {
 		nextId += 1;
 		toDoItems.add(item);
 		
-		try (FileWriter fileWriter = new FileWriter("list.csv", true)) {
+		try (FileWriter fileWriter = new FileWriter("list.csv")) {
 
 			CSVPrinter csvFilePrinter = CSVFormat.DEFAULT.print(fileWriter);
 
