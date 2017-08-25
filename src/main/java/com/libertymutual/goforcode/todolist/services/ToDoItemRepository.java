@@ -73,6 +73,22 @@ public class ToDoItemRepository {
 		item.setId(nextId);
 		nextId += 1;
 		toDoItems.add(item);
+		
+		try (FileWriter fileWriter = new FileWriter("list.csv")) {
+
+			CSVPrinter csvFilePrinter = CSVFormat.DEFAULT.print(fileWriter);
+
+			for (ToDoItem i : toDoItems) {
+
+				Object[] record = new String[] { String.valueOf(i.getId()), i.getText(), String.valueOf(i.isComplete()) };
+				csvFilePrinter.printRecord(record);
+
+			}
+
+		} catch (IOException e) {
+			System.out.println("issue creating item");
+
+		}
 	}
 
 	/**
@@ -83,7 +99,19 @@ public class ToDoItemRepository {
 	 * @return The ToDoItem with the specified id or null if none is found.
 	 */
 	public ToDoItem getById(int id) {
+		
+//		List<ToDoItem> items = getAll();
+//		
+//		for (ToDoItem record : items) {
+//			if (record.getId() == id) {
+//				return record;
+//			}
+//		}
+//		return null;
+//	}
+	
 		return toDoItems.stream().filter(item -> item.getId() == id).findFirst().orElse(null);
+		
 	}
 
 	/**
